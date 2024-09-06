@@ -2,8 +2,6 @@ package com.fatecrl.contacorrente.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import com.fatecrl.contacorrente.model.Conta;
 
 public class ContaService {
@@ -28,12 +26,9 @@ public class ContaService {
     }
 
     public Conta find(Conta conta){
-        // return contas.stream()
-        //              .filter(c -> c.equals(conta))
-        //              .findFirst().orElse(null);   
         return contas.stream()
                      .filter(c -> c.equals(conta))
-                     .findFirst().get();                                
+                     .findFirst().orElse(null);                           
     }
 
     public Conta find(Long id){
@@ -66,20 +61,12 @@ public class ContaService {
 
             if (conta.getSaldo() != null && conta.getSaldo() > 0)
                 _conta.setSaldo(conta.getSaldo());
-                
+
             if (!conta.getTitular().isBlank())
                 _conta.setTitular(conta.getTitular());
+            
+            return true;
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
-
 }
