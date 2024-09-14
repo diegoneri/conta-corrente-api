@@ -30,19 +30,20 @@ public class ContaCorrenteController {
 
     //Para executar: http://localhost:8090/api/conta-corrente
     @GetMapping
-    public ResponseEntity<List<Conta>> getAll(@RequestParam(required = false) String titular){
-        if (titular != null && !titular.isEmpty()){
-            List<Conta> contas = contaService.findByTitular(titular);
-            if (contas != null && contas.size() > 0){
-                return ResponseEntity.ok(contas);
-            }
-            return ResponseEntity.notFound().build();
-        }else{
-            return ResponseEntity.ok(contaService.findAll());
-        }
-        
+    public ResponseEntity<List<Conta>> getAll(){
+        return ResponseEntity.ok(contaService.findAll());
     }
     
+    @GetMapping(params="titular")
+    public ResponseEntity<List<Conta>> getAll(@RequestParam String titular){
+        List<Conta> contas = contaService.findByTitular(titular);
+        if (contas != null && contas.size() > 0){
+            return ResponseEntity.ok(contas);
+        }
+
+        return ResponseEntity.notFound().build();
+    }    
+
     //Para executar: http://localhost:8090/api/conta-corrente/1 (ok)
     //Para executar: http://localhost:8090/api/conta-corrente/999 (not found)
     @GetMapping("/{id}")
