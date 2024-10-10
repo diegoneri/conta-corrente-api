@@ -2,12 +2,28 @@ package com.fatecrl.contacorrente.model;
 
 import java.io.Serializable;
 
-public class Conta implements Serializable{
-    private Long id;
-    private Integer agencia;
-    private String numero;
-    private String titular;
-    private Double saldo;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_conta")
+public class Conta implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "nr_agencia", nullable = false)
+	private Integer agencia;
+	@Column(name = "nm_numero", nullable = false, length = 10)
+	private String numero;
+	@Column(name = "nm_titular", nullable = false, length = 100)
+	private String titular;
+	@Column(name = "vl_saldo", nullable = false)
+	private Double saldo;
     
     public Conta() {
     }
