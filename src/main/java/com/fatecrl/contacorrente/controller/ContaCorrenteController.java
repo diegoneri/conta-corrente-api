@@ -32,7 +32,7 @@ public class ContaCorrenteController {
     @GetMapping
     public ResponseEntity<List<Conta>> getAll(@RequestParam(required = false) String titular){
         if (titular != null && !titular.isEmpty()){
-            List<Conta> contas = contaService.findByTitular(titular);
+            List<Conta> contas = contaService.findByTitular(titular).orElse(null);
             if (contas != null && contas.size() > 0){
                 return ResponseEntity.ok(contas);
             }
@@ -47,7 +47,7 @@ public class ContaCorrenteController {
     //Para executar: http://localhost:8090/api/conta-corrente/999 (not found)
     @GetMapping("/{id}")
     public ResponseEntity<Conta> get(@PathVariable("id") Long id){
-        Conta conta = contaService.find(id);
+        Conta conta = contaService.find(id).orElse(null);
         if (conta != null){
             return ResponseEntity.ok(conta);
         }
