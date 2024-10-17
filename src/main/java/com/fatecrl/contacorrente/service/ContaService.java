@@ -2,51 +2,50 @@ package com.fatecrl.contacorrente.service;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import com.fatecrl.contacorrente.model.Conta;
 import com.fatecrl.contacorrente.repository.ContaRepository;
 
 @Service
 public class ContaService {
-	@Autowired
-	private ContaRepository repository;
-	public ContaService() {
-	}
 
+    @Autowired
+    private ContaRepository contaRepository;
+
+    public ContaService(){
+
+    }
 
     public List<Conta> findAll(){
-        return repository.findAll();
+        return contaRepository.findAll();
     }
 
-    public Conta find(Conta conta){
-        return this.find(conta.getId());                           
+    public Optional<Conta> find(Long id){
+        return contaRepository.findById(id.longValue());
     }
 
-    public Conta find(Long id){
-        return repository.findById(id).orElse(null);    
+    public Optional<List<Conta>> findByTitular(String titular){
+        return contaRepository.findByTitular(titular);
     }
 
-    public List<Conta> findByTitular(String titular){
-        return repository.findByTitular(titular);
+    public void create(@NonNull Conta conta){
+        contaRepository.save(conta);
     }
 
-    public Conta create(Conta conta){
-		repository.save(conta);
-		return conta;
-    }
-
-    public Boolean delete(Long id){
-        if (repository.existsById(id)){
-            repository.deleteById(id);            
+    public Boolean delete(@NonNull Long id){
+        if (contaRepository.existsById(id)){
+            contaRepository.deleteById(id);
             return true;
         }
         return false;
     }
 
-    public Boolean update(Conta conta){
-        if (repository.existsById(conta.getId())){
-            repository.save(conta);            
+    public Boolean update(@NonNull Conta conta){
+        if (contaRepository.existsById(conta.getId().longValue())){
+            contaRepository.save(conta);            
             return true;
         }
         return false;
