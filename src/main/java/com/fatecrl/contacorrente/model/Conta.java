@@ -11,18 +11,19 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_conta")
-public class Conta implements Serializable{
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "nr_agencia", nullable = false)
-    private Integer agencia;
-    @Column(name="nm_conta", length = 8, nullable = false)
-    private String numero;
-    @Column(name="nm_titular", length = 50, nullable = false)
-    private String titular;
-    @Column(name="vl_saldo", nullable = false)
-    private Double saldo;
+public class Conta implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "nr_agencia", nullable = false)
+	private Integer agencia;
+	@Column(name = "nm_numero", nullable = false, length = 10)
+	private String numero;
+	@Column(name = "nm_titular", nullable = false, length = 100)
+	private String titular;
+	@Column(name = "vl_saldo", nullable = false)
+	private Double saldo;
     
     public Conta() {
     }

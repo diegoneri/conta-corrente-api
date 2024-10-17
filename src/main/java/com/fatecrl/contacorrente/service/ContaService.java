@@ -6,47 +6,77 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-
 import com.fatecrl.contacorrente.model.Conta;
 import com.fatecrl.contacorrente.repository.ContaRepository;
 
 @Service
 public class ContaService {
-
-    @Autowired
-    private ContaRepository contaRepository;
+    private static List<Conta> contas = new ArrayList<Conta>();
 
     public ContaService(){
+        contaFake();
+    }
 
+    private void contaFake(){
+        Conta conta = new Conta();
+        conta.setAgencia(1234);
+        conta.setId(1L);
+        conta.setNumero("1234");
+        conta.setSaldo(1000.00);
+        conta.setTitular("Diego Neri");
+        contas.add(conta);
     }
 
     public List<Conta> findAll(){
-        return contaRepository.findAll();
+        return contas;
     }
 
-    public Optional<Conta> find(Long id){
-        return contaRepository.findById(id.longValue());
+    public Conta find(Conta conta){
+        return contas.stream()
+                     .filter(c -> c.equals(conta))
+                     .findFirst().orElse(null);                           
     }
 
-    public Optional<List<Conta>> findByTitular(String titular){
-        return contaRepository.findByTitular(titular);
+    public Conta find(Long id){
+        return find(new Conta(id));
     }
 
-    public void create(@NonNull Conta conta){
-        contaRepository.save(conta);
+    public List<Conta> findByTitular(String titular){
+        return contas.stream()
+                     .filter(c -> c.getTitular().toLowerCase().indexOf(titular.toLowerCase()) > -1)
+                     .toList();
     }
 
-    public Boolean delete(@NonNull Long id){
-        if (contaRepository.existsById(id)){
-            contaRepository.deleteById(id);
+    public void create(Conta conta){
+        Long newId = (long) (contas.size() + 1);
+        conta.setId(newId);
+        contas.add(conta);
+    }
+
+    public Boolean delete(Long id){
+        Conta _conta = find(id);
+        if (_conta != null){
+            contas.remove(_conta);
             return true;
         }
         return false;
     }
 
-    public Boolean update(@NonNull Conta conta){
-        if (contaRepository.existsById(conta.getId().longValue())){
-            contaRepository.save(conta);            
+    public Boolean update(Conta conta){
+        Conta _conta = find(conta);
+        if (_conta != null){
+            if (conta.getAgencia() != null && conta.getAgencia() > 0)
+                _conta.setAgencia(conta.getAgencia());
+
+            if (!conta.getNumero().isBlank())
+                _conta.setNumero(conta.getNumero());
+
+            if (conta.getSaldo() != null && conta.getSaldo() > 0)
+                _conta.setSaldo(conta.getSaldo());
+
+            if (!conta.getTitular().isBlank())
+                _conta.setTitular(conta.getTitular());
+            
             return true;
         }
         return false;
