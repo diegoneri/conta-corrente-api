@@ -1,7 +1,5 @@
 package com.fatecrl.contacorrente.mapper;
 
-import java.util.stream.Collectors;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
