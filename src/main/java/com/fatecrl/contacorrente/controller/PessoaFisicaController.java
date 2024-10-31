@@ -11,7 +11,7 @@ import com.fatecrl.contacorrente.service.PessoaFisicaService;
 public class PessoaFisicaController implements IController<PessoaFisica> {
 
     @Autowired
-    private final PessoaFisicaService pessoaFisicaService;
+    private PessoaFisicaService pessoaFisicaService;
 
     @Override
     public ResponseEntity<List<PessoaFisica>> getAll() {
@@ -20,22 +20,22 @@ public class PessoaFisicaController implements IController<PessoaFisica> {
 
     @Override
     public ResponseEntity<PessoaFisica> get(Long id) {
-        return ResponseEntity.ok(pessoaFisicaService.getById(id));
+        return ResponseEntity.ok(pessoaFisicaService.findById(id));
     }
 
     @Override
     public ResponseEntity<PessoaFisica> post(PessoaFisica obj) {
-        return ResponseEntity.ok(pessoaFisicaService.post(obj));
+        return ResponseEntity.ok(pessoaFisicaService.create(obj));
     }
 
     @Override
     public ResponseEntity<?> put(PessoaFisica obj) {
-        return ResponseEntity.ok(pessoaFisicaService.put(obj));
+        return ResponseEntity.ok(pessoaFisicaService.update(obj));
     }
 
     @Override
     public ResponseEntity<?> patch(PessoaFisica obj) {
-        return ResponseEntity.ok(pessoaFisicaService.patch(obj));
+        return ResponseEntity.ok(pessoaFisicaService.update(obj));
     }
 
     @Override
