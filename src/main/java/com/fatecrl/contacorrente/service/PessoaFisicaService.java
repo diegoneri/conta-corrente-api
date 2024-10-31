@@ -3,10 +3,12 @@ package com.fatecrl.contacorrente.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fatecrl.contacorrente.model.PessoaFisica;
 import com.fatecrl.contacorrente.repository.PessoaFisicaRepository;
 
+@Service
 public class PessoaFisicaService implements IService<PessoaFisica> {
 
     @Autowired
