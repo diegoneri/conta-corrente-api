@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import com.fatecrl.contacorrente.model.Conta;
@@ -19,16 +21,16 @@ public class ContaService {
 
     }
 
-    public List<Conta> findAll(){
-        return contaRepository.findAll();
+    public Page<Conta> findAll(Pageable pageable){
+        return contaRepository.findAll(pageable);
     }
 
     public Optional<Conta> find(Long id){
         return contaRepository.findById(id.longValue());
     }
 
-    public Optional<List<Conta>> findByTitular(String titular){
-        return contaRepository.findByTitular(titular);
+    public Page<Conta> findByTitular(String titular, Pageable pageable){
+        return contaRepository.findByTitular(titular, pageable);
     }
 
     public Conta create(@NonNull Conta conta){

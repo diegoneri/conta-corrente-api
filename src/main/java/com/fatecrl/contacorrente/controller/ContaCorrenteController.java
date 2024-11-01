@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,15 +42,15 @@ public class ContaCorrenteController {
 
     //Para executar: http://localhost:8090/api/conta-corrente
     @GetMapping
-    public ResponseEntity<List<ContaCorrenteDTO>> getAll(@RequestParam(required = false) String titular){
+    public ResponseEntity<Page<ContaCorrenteDTO>> getAll(@RequestParam(required = false) String titular, Pageable pageable){
         if (titular != null && !titular.isEmpty()){
-            List<Conta> contas = contaService.findByTitular(titular).orElse(null);
-            if (contas != null && contas.size() > 0){
+            Page<Conta> contas = contaService.findByTitular(titular, pageable);
+            if (contas != null && contas.getSize() > 0){
                 return ResponseEntity.ok(mapper.toDTO(contas));
             }
             return ResponseEntity.notFound().build();
         }else{
-            return ResponseEntity.ok(mapper.toDTO(contaService.findAll()));
+            return ResponseEntity.ok(mapper.toDTO(contaService.findAll(pageable)));
         }
         
     }

@@ -2,6 +2,7 @@ package com.fatecrl.contacorrente.mapper;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.fatecrl.contacorrente.dto.ContaCorrenteDTO;
@@ -22,6 +23,11 @@ public class ContaCorrenteMapper {
     public List<ContaCorrenteDTO> toDTO(List<Conta> modelList){
         return modelList.stream().map(this::toDTO).toList();
     }
+
+
+    public Page<ContaCorrenteDTO> toDTO(Page<Conta> modelPage){
+        return modelPage.map(this::toDTO);
+    }   
 
     public Conta toModel(@NonNull ContaCorrenteDTO dto){
         return new Conta(dto.getAgencia()

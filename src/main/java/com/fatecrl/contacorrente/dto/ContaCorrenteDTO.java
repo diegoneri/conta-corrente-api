@@ -20,6 +20,5 @@ public class ContaCorrenteDTO {
 	private String titular;
     @NotNull
     @Min(1) 
-    @Max(3000)
 	private Double saldo;
 }
