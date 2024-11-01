@@ -3,9 +3,11 @@ package com.fatecrl.contacorrente.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "tb_conta")
+@AllArgsConstructor
 public class Conta extends AbstractEntity  {
 	@Column(name = "nr_agencia", nullable = false)
 	private Integer agencia;

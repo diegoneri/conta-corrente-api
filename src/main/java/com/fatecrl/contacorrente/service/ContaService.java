@@ -31,8 +31,8 @@ public class ContaService {
         return contaRepository.findByTitular(titular);
     }
 
-    public void create(@NonNull Conta conta){
-        contaRepository.save(conta);
+    public Conta create(@NonNull Conta conta){
+        return contaRepository.save(conta);
     }
 
     public Boolean delete(@NonNull Long id){
