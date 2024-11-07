@@ -2,12 +2,28 @@ package com.fatecrl.contacorrente.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "tb_conta")
 @AllArgsConstructor
+@NamedQueries({ 
+    @NamedQuery(name = "Conta.listarPorAgencia", 
+       query = "select c from Conta c where c.agencia=?1"),
+ 
+ 
+    @NamedQuery(name = "Conta.listarPorAgenciaESaldo", 
+       query = "select c from Conta c where c.agencia=?1 and" 
+               + " c.saldo between ?2 and ?3"),
+ 
+ 
+    @NamedQuery(name = "Conta.listarPorNomeCliente", 
+       query = "select c from Conta c join Cliente cc on" 
+               + " cc.conta = c where cc.nome like ?1")
+ })  
 public class Conta extends AbstractEntity  {
 	@Column(name = "nr_agencia", nullable = false)
 	private Integer agencia;

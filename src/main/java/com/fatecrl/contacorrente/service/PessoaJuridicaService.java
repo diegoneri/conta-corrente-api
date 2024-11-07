@@ -1,9 +1,8 @@
 package com.fatecrl.contacorrente.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.fatecrl.contacorrente.model.PessoaJuridica;
 import com.fatecrl.contacorrente.repository.PessoaJuridicaRepository;
@@ -24,8 +23,8 @@ public class PessoaJuridicaService implements IService<PessoaJuridica> {
     }
 
     @Override
-    public List<PessoaJuridica> findAll() {
-        return repository.findAll();
+    public Page<PessoaJuridica> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override

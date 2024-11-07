@@ -1,21 +1,28 @@
 package com.fatecrl.contacorrente.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fatecrl.contacorrente.model.PessoaFisica;
 import com.fatecrl.contacorrente.service.PessoaFisicaService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@RestController
+@RequestMapping("/pessoa-fisica")
+@Tag(name = "Pessoa física", description = "Cadastro de pessoas físicas")
 public class PessoaFisicaController implements IController<PessoaFisica> {
 
     @Autowired
     private PessoaFisicaService pessoaFisicaService;
 
     @Override
-    public ResponseEntity<List<PessoaFisica>> getAll() {
-        return ResponseEntity.ok(pessoaFisicaService.findAll());
+    public ResponseEntity<Page<PessoaFisica>> getAll(Pageable pageable) {
+        return ResponseEntity.ok(pessoaFisicaService.findAll(pageable));
     }
 
     @Override
@@ -42,5 +49,4 @@ public class PessoaFisicaController implements IController<PessoaFisica> {
     public ResponseEntity<?> delete(Long id) {
         return ResponseEntity.ok(pessoaFisicaService.delete(id));
     }
-
 }

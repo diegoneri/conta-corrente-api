@@ -1,6 +1,5 @@
 package com.fatecrl.contacorrente.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +51,21 @@ public class ContaService {
         }
         return false;
     }
+
+    public Page<Conta> listarPorAgencia(Integer agencia, Pageable pageable) {
+        return contaRepository.listarPorAgencia(agencia, pageable);
+     }
+     
+     public Page<Conta> listarPorAgenciaESaldo(
+                   Integer agencia, Float from, Float to, Pageable pageable) {
+        return contaRepository.listarPorAgenciaESaldo(agencia, 
+                                               from, to, pageable);
+     }
+     
+     public Page<Conta> listarPorNomeCliente(String nome, Pageable pageable) {
+        return contaRepository.listarPorNomeCliente('%' + nome 
+                                                  + '%', pageable);
+     }
+     
+
 }

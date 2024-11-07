@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 import com.fatecrl.contacorrente.dto.ContaCorrenteDTO;
 import com.fatecrl.contacorrente.model.Conta;
 
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Component
+@NoArgsConstructor
 public class ContaCorrenteMapper {
 
     public ContaCorrenteDTO toDTO(Conta model){

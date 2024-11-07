@@ -1,8 +1,6 @@
 package com.fatecrl.contacorrente.controller;
 
 import java.net.URI;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -92,4 +90,31 @@ public class ContaCorrenteController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping(value = "/agencia/{agencia}")
+    public ResponseEntity<Page<Conta>> getByAgencia(
+               @PathVariable("agencia") Integer agencia, Pageable pageable) {
+       return ResponseEntity.ok(
+                     contaService.listarPorAgencia(agencia, pageable));
+    }
+    
+    @GetMapping(value = "/agencia/{agencia}?saldoFrom={from}&saldoTo={to}")
+    public ResponseEntity<Page<Conta>> getByAgenciaESaldo(
+             @PathVariable("agencia") Integer agencia,
+             @RequestParam("from") Float from, 
+             @RequestParam("to") Float to, 
+             Pageable pageable) {
+       return ResponseEntity
+          .ok(contaService.listarPorAgenciaESaldo(agencia, from, 
+                                             to, pageable));
+    }
+    
+    @GetMapping(value = "/cliente?nome={nome}")
+    public ResponseEntity<Page<Conta>> getByNomeCliente(
+                  @RequestParam("nome") String nome, 
+                  Pageable pageable) {
+       return ResponseEntity
+          .ok(contaService.listarPorNomeCliente(nome, pageable));
+    }
+    
 }
