@@ -26,8 +26,8 @@ public class MovimentacaoDTO {
 	@NotBlank(message = "Descrição requerida")
 	private String descricao;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-	@Past
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Past(message = "Data deve ser anterior a data de hoje")
 	private Calendar data;	
 }
 

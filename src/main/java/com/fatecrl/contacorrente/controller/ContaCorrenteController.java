@@ -32,10 +32,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/conta-corrente")
 public class ContaCorrenteController {
 
-    @Autowired
+    public ContaCorrenteController(ContaService contaService, ContaCorrenteMapper mapper){
+        this.contaService = contaService;
+        this.mapper = mapper;
+    }
+    
     private ContaService contaService;
-
-    @Autowired
     private ContaCorrenteMapper mapper;
 
     //Para executar: http://localhost:8090/api/conta-corrente

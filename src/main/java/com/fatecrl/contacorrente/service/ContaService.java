@@ -12,12 +12,10 @@ import com.fatecrl.contacorrente.repository.ContaRepository;
 
 @Service
 public class ContaService {
-
-    @Autowired
     private ContaRepository contaRepository;
 
-    public ContaService(){
-
+    public ContaService(ContaRepository contaRepository){
+        this.contaRepository = contaRepository;
     }
 
     public Page<Conta> findAll(Pageable pageable){
